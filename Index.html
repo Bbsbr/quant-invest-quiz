@@ -13,16 +13,22 @@
   </header>
 
   <div class="section-selector">
-    <button onclick="startQuiz('questions')">Questions</button>
-    <button onclick="startQuiz('math')">Math Quizzes</button>
+	<button onclick="startQuiz('questions')">Questions</button>
+	<button onclick="startQuiz('math')">Math Quizzes</button>
+	<button onclick="toggleSound()">Toggle Sound</button>
+	<span id="soundStatus">Sound: On</span>
   </div>
 
   <div class="quiz-container" id="quizContainer">
+    <div class="score" id="scoreDisplay"></div>
+    <div class="timer" id="timerDisplay"></div>
     <div class="question" id="questionText"></div>
     <div class="answers" id="answersContainer"></div>
     <div class="feedback" id="feedback"></div>
     <button class="next-btn" onclick="nextQuestion()">Next Question</button>
   </div>
+  <audio id="correctSound" src="correct.mp3"></audio>
+  <audio id="wrongSound" src="wrong.mp3"></audio>
 
   <script src="script.js"></script>
 </body>

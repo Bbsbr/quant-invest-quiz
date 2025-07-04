@@ -19,6 +19,23 @@ header {
   padding: 20px;
   border-radius: 8px;
   display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.quiz-container.visible {
+  opacity: 1;
+}
+.score {
+  text-align: right;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.timer {
+  text-align: left;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 10px;
 }
 .question {
   font-size: 1.2em;
@@ -31,6 +48,10 @@ header {
   padding: 10px;
   font-size: 1em;
   cursor: pointer;
+  transition: background 0.3s;
+}
+.answers button:hover {
+  background: #e0e0e0;
 }
 .feedback {
   margin-top: 15px;
@@ -41,4 +62,8 @@ header {
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
+}
+#soundStatus {
+  margin-left: 10px;
+  font-weight: bold;
 }
