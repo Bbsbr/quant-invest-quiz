@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantitative Investing Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .section-selector {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+    .answers button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .next-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quantitative Investing Quiz</h1>
+    <p>Select a section to start:</p>
+  </header>
+
+  <div class="section-selector">
+    <button onclick="startQuiz('questions')">Questions</button>
+    <button onclick="startQuiz('math')">Math Quizzes</button>
+  </div>
+
+  <div class="quiz-container" id="quizContainer">
+    <div class="question" id="questionText"></div>
+    <div class="answers" id="answersContainer"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+  </div>
+
+  <script>
+    const quizzes = {
+      questions: [
+        {
+          question: "What is the Sharpe Ratio primarily used for?",
+          options: ["Measuring risk-adjusted return", "Predicting market direction", "Calculating dividend yield"],
+          correct: 0,
+          explanation: "The Sharpe Ratio measures the return per unit of risk."
+        },
+        {
+          question: "Which factor model expands on the CAPM by adding size and value factors?",
+          options: ["Fama-French Three Factor Model", "Arbitrage Pricing Theory", "Black-Scholes Model"],
+          correct: 0,
+          explanation: "The Fama-French model adds size and value factors to explain returns."
+        }
+      ],
+      math: [
+        {
+          question: "If a stock increases from $100 to $120, what is the return (%)?",
+          options: ["20%", "10%", "15%"],
+          correct: 0,
+          explanation: "Return = (120 - 100)/100 = 20%."
+        },
+        {
+          question: "What is the standard deviation of returns if variance is 0.04?",
+          options: ["0.2", "0.04", "0.16"],
+          correct: 0,
+          explanation: "Standard deviation = sqrt(0.04) = 0.2."
+        }
+      ]
+    };
+
+    let currentSection = "";
+    let currentIndex = 0;
+
+    function startQuiz(section) {
+      currentSection = section;
+      currentIndex = 0;
+      document.querySelector(".section-selector").style.display = "none";
+      document.getElementById("quizContainer").style.display = "block";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const quiz = quizzes[currentSection][currentIndex];
+      document.getElementById("questionText").textContent = quiz.question;
+      const answersContainer = document.getElementById("answersContainer");
+      answersContainer.innerHTML = "";
+      document.getElementById("feedback").textContent = "";
+
+      quiz.options.forEach((option, idx) => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(idx);
+        answersContainer.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selectedIdx) {
+      const quiz = quizzes[currentSection][currentIndex];
+      if (selectedIdx === quiz.correct) {
+        document.getElementById("feedback").textContent = "✅ Correct! " + quiz.explanation;
+        document.getElementById("feedback").style.color = "green";
+      } else {
+        document.getElementById("feedback").textContent = "❌ Incorrect. " + quiz.explanation;
+        document.getElementById("feedback").style.color = "red";
+      }
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex < quizzes[currentSection].length) {
+        showQuestion();
+      } else {
+        document.getElementById("quizContainer").innerHTML = "<h2>Quiz Completed!</h2><button onclick='location.reload()'>Restart</button>";
+      }
+    }
+  </script>
+</body>
+</html>
